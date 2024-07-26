@@ -14,7 +14,7 @@ function AccountOperations() {
     if (!depositAmount) return;
     dispatch(deposit(depositAmount, currency));
     setDepositAmount("");
-    setCurrency("");
+    // setCurrency("");
   }
 
   function handleWithdrawal() {
@@ -55,7 +55,11 @@ function AccountOperations() {
             <option value="INR">indain Rupee</option>
           </select>
 
-          <button onClick={handleDeposit}>Deposit {depositAmount}</button>
+          <button onClick={handleDeposit} disabled={store?.account?.isLoading}>
+            {" "}
+            {store?.account?.isLoading ? "Converting..." : "Deposit"}{" "}
+            {depositAmount}
+          </button>
         </div>
 
         <div>
@@ -87,7 +91,7 @@ function AccountOperations() {
         </div>
 
         <div>
-          <span>Pay back ${store.account.loan}</span>
+          <span>Pay back ${store?.account?.loan}</span>
           <button onClick={handlePayLoan}>Pay loan</button>
         </div>
       </div>
